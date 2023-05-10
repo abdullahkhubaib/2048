@@ -1,4 +1,5 @@
-// Updates the frames
+// 2048 - Abdullah Khubaib
+// Define the colours
 const lineColour = "#BBADA0";
 const textDarkColour = "#776E65";
 const textLightColour = "#F9F6F2";
@@ -35,7 +36,7 @@ let clickPos = {
 let score = 0;
 let highScore = score;
 
-
+// Main game loop
 (async function () {
     let previous: number = Date.now();
     let fTime: number;
@@ -105,7 +106,9 @@ async function drawButtons() {
     ctx.fillText("HighScore: " + highScore, 499 + 15 + 100, 350 + 69, 200);
     ctx.font = "55px Clear Sans";
 }
+
 async function buttonClicks() {
+    // Reset button
     if (clickPos.y >= 30 && clickPos.y <= 30 + 100 && clickPos.x >= 499 + 15 && clickPos.x <= 499 + 15 + 200) {
         grid = [[0, 0, 0, 0],
                 [0, 0, 0, 0],
@@ -119,6 +122,7 @@ async function buttonClicks() {
         newTile = false;
         clickPos = {x: 0, y: 0};
     }
+    // Undo button
     if (clickPos.y >= 145 && clickPos.y <= 145 + 100 && clickPos.x >= 499 + 15 && clickPos.x <= 499 + 15 + 200) {
         undo();
         clickPos = {x: 0, y: 0};
@@ -264,8 +268,8 @@ function undo() {
     }
 }
 
+// Event listeners for handling user input.
 document.addEventListener("keydown", e => key = e.key);
-
 document.addEventListener("mousemove", e => {
     mousePos.x = e.clientX - 8;
     mousePos.y = e.clientY - 8;
@@ -275,4 +279,5 @@ document.addEventListener("click", e => {
     clickPos.y = e.clientY - 8;
 });
 
+// Wrapper for using setTimeout with async/await.
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
